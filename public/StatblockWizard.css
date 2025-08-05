@@ -1,0 +1,412 @@
+/* This file is provided as-is, without any warranty. You are free to copy, modify, and redistribute as you see fit. */
+
+:root {
+    --NPXinaBorder: #bcbcbc;
+    --NPXinaMonstername: #700000;
+    --NPXinaScreenborder: #600000;
+    --NPXinaCoreText: #600000;
+    --NPXinaText: #020202;
+    --NPXinaBackground: #f8f4f0;
+    --NPXinaAbilitiesRow1: #f8e8e0;
+    --NPXinaAbilitiesRow2: #d0d0d0;
+    --NPXinaModsRow1: #e8d0d0;
+    --NPXinaModsRow2: #d8c0c0;
+    --NPXinaSectionHeader: #500000;
+    --NPXinaGrey: #696969;
+    --NPXinaBoxShadow: #d0d0d0;
+}
+
+.NPXina {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+    color: var(--NPXinaText);
+    background-color: var(--NPXinaBackground);
+    columns: 2;
+    gap: 8mm;
+    width: 173mm;
+    padding: 2mm;
+    break-inside: avoid-page;
+    clear: both;
+
+    font-size: 0.8em;
+    font-weight: 300;
+    font-kerning: auto;
+    letter-spacing: 0.02em;
+    border: 3px var(--NPXinaBorder) double;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px var(--NPXinaBoxShadow);
+
+    margin-top: 0;
+    margin-bottom: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 7px 7px;
+}
+
+.SingleColumn {
+    columns: 1;
+    min-width: 100px;
+    width: 84mm;
+}
+
+.Content {
+    position: relative;
+}
+
+.Transparent {
+    background-color: transparent;
+    --NPXinaBackground: #f8f4f0;
+    --NPXinaAbilitiesRow1: #f8e8e0;
+    --NPXinaAbilitiesRow2: #d0d0d0;
+    --NPXinaModsRow1: #e8d0d0;
+    --NPXinaModsRow2: #d8c0c0;
+}
+
+.SemiTransparent {
+    --NPXinaBackground: #f8f4f0c0;
+    --NPXinaAbilitiesRow1: #f8e8e0c0;
+    --NPXinaAbilitiesRow2: #d0d0d0c0;
+    --NPXinaModsRow1: #e8d0d0c0;
+    --NPXinaModsRow2: #d8c0c0c0;
+}
+
+.likeyword,
+.keyword, .NPXina strong, .NPXina b {
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+.nbspbefore::before,
+.nbspafter::after,
+.keyword::after {
+    content: '\0000a0';
+}
+
+.header {
+    column-span: all;
+}
+
+.title {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+    font-size: 1.7em;
+    font-variant: small-caps;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+
+    color: var(--NPXinaMonstername);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px var(--NPXinaScreenborder) solid;
+}
+
+.sizetypetagsalignment {
+    font-style: italic;
+    color: var(--NPXinaGrey);
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+}
+
+.core {
+    color: var(--NPXinaCoreText);
+}
+
+.general,
+.general2,
+.general3 {
+    break-inside: avoid;
+    border: none;
+}
+
+.general2 {
+    width: 100%;
+    columns: 2;
+}
+
+.abilities {
+    box-sizing: border-box;
+    break-inside: avoid;
+
+    display: flex;
+    flex-grow: initial;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    clear: both;
+    border: none;
+}
+
+.abilitiesblock {
+    border-collapse: collapse;
+    margin: 3px 0;
+}
+
+.physicalabilities {
+    background-color: var(--NPXinaAbilitiesRow1);
+}
+.physicalmods {
+    background-color: var(--NPXinaModsRow1);
+}
+
+.mentalabilities {
+    background-color: var(--NPXinaAbilitiesRow2);
+}
+.mentalmods {
+    background-color: var(--NPXinaModsRow2);
+}
+
+.abilitiesblock th {
+    font-size: 1em;
+    font-weight: lighter;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    text-align: right;
+    text-align-last: right;
+    padding-right: 1px;
+    color: var(--NPXinaGrey);
+}
+
+.ability {
+    text-align: center;
+    width: 2.5cm;
+    padding: 1px 4px;
+}
+
+.abilityname {
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    text-align: left;
+    padding-left: 3px;
+    width: 1.5em;
+}
+
+.abilityscore {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.abilitymodifier {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.abilitysave {
+    text-align: right;
+    padding-right: 3px;
+    width: 1.5em;
+}
+
+.features {
+    border: none;
+    margin-bottom: 2px;
+    break-inside: avoid-column;
+}
+
+.feature {
+    text-indent: -1em;
+    padding-left: 1em;
+
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+.crproficiency {
+    text-indent: 0;
+    padding-left: 0;
+}
+
+.cr {
+    margin-right: 3px !important;
+    break-inside: avoid;
+    break-after: auto;
+}
+
+.proficiency {
+    break-inside: avoid;
+}
+
+.sectionheader {
+    color: var(--NPXinaSectionHeader);
+    font-variant: small-caps;
+    font-size: 1.4em;
+    letter-spacing: 0.02em;
+    break-inside: avoid;
+    break-after: avoid;
+
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 1px;
+    border-bottom: 1px var(--NPXinaScreenborder) solid;
+}
+
+.characteristics {
+    border-bottom: 2px var(--NPXinaScreenborder) solid;
+    margin-bottom: 2px;
+    break-inside: avoid-column;
+}
+
+.sectionheader+.line {
+    break-before: avoid;
+}
+
+.line {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.line+.text {
+    text-indent: 1em;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.sectionheader+.line {
+    margin-top: 2px;
+}
+
+.attacktype,
+.hit,
+.savingthrowtype,
+.savingthrowresult,
+.trigger,
+.response,
+.italic {
+    font-style: italic;
+}
+
+.hit::before,
+.savingthrowresult::before,
+.response::before {
+    content: ' ';
+}
+
+.attacktype::after,
+.hit::after,
+.savingthrowtype::after,
+.savingthrowresult::after,
+.trigger::after,
+.response::after {
+    content: '\0000a0';
+}
+
+.detailline {
+    text-indent: -1em;
+    padding-left: 1em;
+    margin: 0;
+}
+
+.namedstring .keyword,
+.attack .keyword,
+.savingthrow .keyword,
+.reaction .keyword {
+        font-style: italic;
+}
+
+.legendarytext {
+    font-style: italic;
+    color: var(--NPXinaGrey);
+}
+
+.spellliststart {
+    font-weight: bold;
+}
+
+.spellliststart::after {
+    content: '\0000a0';
+}
+
+.spell {
+    font-style: italic;
+    break-before: avoid-column;
+}
+
+.list-ol {
+    margin-top: 0;
+    padding: 0 0 0 1em;
+    list-style-type: decimal;
+    list-style-position: outside;
+    break-before: avoid-column;
+    counter-reset: itemcounter;
+}
+
+ol li.listitem {
+    counter-increment: itemcounter;
+}
+
+ol li.listitem::marker {
+    content: counter(itemcounter) ": ";
+    font-weight: bold;
+}
+
+.list-ul {
+    margin-top: 0;
+    padding: 0 0 0 1em;
+    list-style-type: disc;
+    list-style-position: outside;
+    break-before: avoid-column;
+}
+
+dl.list {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.line+dl.list {
+    margin-top: 2px;
+}
+
+dt.keyword,
+dt.spellliststart {
+    float: left;
+    clear: left;
+}
+
+dt.keyword::after {
+    content: '\0000a0';
+}
+
+dd.listitem,
+dd.spelllist {
+    margin-left: 1em;
+}
+
+.supplemental {
+    width: 100%;
+}
+
+.image {
+    display: block;
+    border: none;
+    padding: 0;
+    max-width: 60mm;
+    margin: 0 auto;
+}
+
+.image-left {
+    margin: 0 auto 0 0;
+}
+
+.image-right {
+    margin: 0 0 0 auto;
+}
+
+.image-first {
+    margin-bottom: 1mm;
+}
+
+.image-last {
+    margin-top: 1mm;
+}
+
+.NPXina hr {
+    margin: 2px 0;
+    border-style: none;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px var(--NPXinaScreenborder) solid;
+}

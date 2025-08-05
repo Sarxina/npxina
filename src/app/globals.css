@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+    --color-statblock-brown: #5b160c;
+};
+
+@font-face {
+  font-family: "Tiamat";
+  src: url("/fonts/tiamat.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+    --statblock_font-tiamat: "Tiamat", serif;
+}
+
+.statblock {
+    background: #f5f3ee !important;
+    position: relative;
+    box-shadow: 0 0 5px #979AA4;
+    border: 1px solid #d4d0ce;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: "Scala Sans Offc", Roboto, Helvetica, sans-serif;
+    font-size: 15px;
+    outline: 1px solid #afa47a;
+    outline-offset: -0.25rem;
+    border-radius: .5rem;
+}
+
+.statblock-header-name {
+    border-bottom: .063rem solid #5b160c;
+    font-family: "Scala Sans Sc Offc", Roboto, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.75rem;
+    column-span: all;
+    margin-bottom: .45rem;
+    color: #822000;
+}
+
+.statblock-stat-table thead tr th {
+    color: #68747b !important;
+    font-weight: 400;
+    padding: .3125rem .125rem 0;
+    text-transform: uppercase;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: .6875rem;
+}
+
+.statblock-stat-table tbody tr {
+    border-top: .0625rem solid #fff;
+    border-bottom: .0625rem solid #fff;
+    color: #5b160c;
+    text-align: center;
+    font-size: .938rem;
+}
+
+.statblock-stat-table-phy-val { background-color: #ede6d9}
+.statblock-stat-table-phy-mod { background-color: #ded4cc}
+.statblock-stat-table-men-val { background-color: #d8dad1}
+.statblock-stat-table-men-mod { background-color: #d0caca}
+
+.statblock-desc-block-header {
+    border-bottom: .063rem solid #5b160c;
+    font-size: 1.25rem;
+    font-family: "Scala Sans Sc Offc", Roboto, Helvetica, sans-serif;
+    font-weight: normal;
+    line-height: 1.4;
+    margin-top: 1.25rem;
+    margin-bottom: .938rem;
+    color: #5b160c
+}
