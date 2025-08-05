@@ -1,4 +1,4 @@
-import { NPCAbilityScores, NPCStatBlockStats, Ability, Skill, AtkRoll} from "../../types/npcTypes"
+import { NPCAbilityScores, NPCStatBlockStats, Ability, Skill, AtkRoll} from "../types/npcTypes"
 
 const skillToAbilityMap: Record<Skill, Ability> = {
     Athletics: 'STR',
@@ -23,7 +23,7 @@ const skillToAbilityMap: Record<Skill, Ability> = {
 
 /** Calculates the modifier of an ability score */
 export const calcAbilityMod = (score: number): number => {
-    return Math.floor((10 - score) / 2);
+    return Math.floor((score - 10) / 2);
 }
 
 /** Calculates the modifier of a skill, given proficiency or expertise */
@@ -35,7 +35,7 @@ export const calcSkillMod = (
     expertise: boolean
 ) : number => {
     var ability : Ability = skillToAbilityMap[skill];
-    var baseScore: number = calcAbilityMod(abilityScores[ability.toLowerCase()]);
+    var baseScore: number = calcAbilityMod(abilityScores[ability]);
 
     return baseScore + (proficient ? profBonus : 0) + (expertise ? profBonus: 0);
 };

@@ -1,7 +1,7 @@
-import { CR_TO_MULTIATTACK } from "../constants/crData";
+import { CR_TO_MULTIATTACK } from "../data/crData";
 import { ToWords } from 'to-words';
 import { AtkRoll } from "../types/npcTypes"
-import { calcAtkRoll } from "../app/utils/statUtils";
+import { calcAtkRoll } from "../utils/statUtils";
 
 const StatBlockBasicEntry = ({keyword, keywordText}: {keyword: string, keywordText: string}) => {
     return (

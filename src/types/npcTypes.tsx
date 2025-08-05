@@ -1,3 +1,5 @@
+import { CoreBuffNerf } from "./generationTypes";
+
 type BuffNerfNeutral = "buff" | "nerf" | "nuetral"
 
 export type Ability = 'STR' | 'DEX' | 'CON' | 'INT' | 'WIS' | 'CHA';
@@ -20,13 +22,7 @@ export type Skill =
     | 'Intimidation'
     | 'Performance'
     | 'Persuasion';
-
-type StatModifier = {
-    ac: BuffNerfNeutral
-    attackBonus: BuffNerfNeutral;
-    hp: BuffNerfNeutral;
-    dpr: BuffNerfNeutral;
-}
+export type DescBlockType = 'action' | 'bonusaction' | 'reaction' | 'traits'
 
 export type NPCAbilityScores = {
     STR: number;
@@ -51,11 +47,15 @@ export type CoreStats = {
     prof: number;
 }
 
+
 export type NPCStats = {
     name: string;
     allignment: string;
     coreStats: CoreStats;
     statBlock: NPCStatBlockStats;
+    /**Holds a tally of how much an NPC's
+     * core stats have been modified */
+    coreModProfle: CoreBuffNerf;
     skills: Skill[];
     traits: string[];
     actions: string[];

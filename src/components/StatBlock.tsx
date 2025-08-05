@@ -1,9 +1,10 @@
 import { calculateStats } from "@/lib/generateBaseStats";
 import { ReactElement } from "react";
 import { NPCStats, NPCStatBlockStats, NPCAbilityScores, Ability, Skill } from "../types/npcTypes"
-import { calcAbilityMod, calcSkillMod, getCRString} from "../app/utils/statUtils";
-import { CR_TO_XP } from "../constants/crData";
+import { calcAbilityMod, calcSkillMod, getCRString} from "../utils/statUtils";
+import { CR_TO_XP } from "../data/crData";
 import { BasicAttackEntry, MultiAttackEntry } from "./Entries";
+import { modSign } from "@/utils/stringUtils";
 
 type StatBlockHeaderProps = {
     name : string,
@@ -31,8 +32,9 @@ const StatBlockAttribute = ({attrLabel, attrValue}:{attrLabel: string, attrValue
 
 const StatBlockAttributeACInit = ({ac, init}: {ac: string, init: number}) => {
 
-    var initSign: string = init >= 0 ? '+' : '-';
+    var initSign: string = modSign(init);
     var initString: string = `${initSign}${init} (${10 + init})`;
+
     return (
         <div className="flex ">
             <StatBlockAttribute attrLabel="AC" attrValue={ac}/>{"\u00A0\u00A0\u00A0\u00A0"}
@@ -62,10 +64,10 @@ type StatTableRowProps = {
 }
 const StatTableRow = ({type, statName, statValue, statProf, profBonus}: StatTableRowProps) => {
 
-    var statMod = Math.floor((statValue - 10) / 2);
-    var statModSign = statMod >= 0 ? '+' : '';
+    var statMod = calcAbilityMod(statValue)
+    var statModSign = modSign(statMod);
     var saveMod = statMod + (statProf ? profBonus : 0);
-    var saveModSign = saveMod >= 0 ? '+' : '';
+    var saveModSign = modSign(saveMod);
     return (
         <tr>
             <th className={`statblock-stat-table-${type}-val p-0 border-0`}>{statName}</th>
@@ -248,7 +250,6 @@ type DescriptionBlockDataType = {
 }
 const StatBlockDescriptionBlocks = ({traits, actions, bonusActions, reactions, dpr, atk, cr}: DescriptionBlockDataType) => {
 
-    var traitsBlock
     return (
         <div className="mt5">
             {traits.length > 0 ? <StatBlockDescriptionBlock blockTitle="Traits" entries={[]}/> : null}
@@ -265,6 +266,7 @@ export default function StatBlock({npcStats}: {npcStats: NPCStats}) {
         allignment,
         coreStats,
         statBlock,
+        coreModProfle,
         skills,
         traits,
         actions,

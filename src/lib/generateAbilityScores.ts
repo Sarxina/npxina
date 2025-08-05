@@ -1,4 +1,4 @@
-import { NPCGenerationProfile } from "@/types/generationTypes";
+import { AbilityScoreProfile, NPCGenerationProfile } from "@/types/generationTypes";
 import { Ability, NPCAbilityScores } from "@/types/npcTypes";
 import { defaultNPCAbilityScores } from "./produceNPC";
 
@@ -25,14 +25,14 @@ const getASArray = (cr: number): number[] => {
     return baseArray.map(x => x + mod).sort((a, b) => a - b);
 }
 
-export const generateAbilityScores = (generationProfile: NPCGenerationProfile): NPCAbilityScores => {
+export const generateAbilityScores = (asScoreProfile: AbilityScoreProfile, cr: number): NPCAbilityScores => {
 
-    const abilityArray: number[] = getASArray(generationProfile.cr);
+    const abilityArray: number[] = getASArray(cr);
     const returnStats: NPCAbilityScores = {...defaultNPCAbilityScores}
 
     /** Randomy choose which order to assign the remaining ability scores for variety */
     const allAbilities: Ability[] = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
-    const remainingAbilities = allAbilities.filter(ability => !Object.values(generationProfile.abilityScoreProfile).includes(ability));
+    const remainingAbilities = allAbilities.filter(ability => !Object.values(asScoreProfile).includes(ability));
 
 
     const {
@@ -40,7 +40,7 @@ export const generateAbilityScores = (generationProfile: NPCGenerationProfile): 
         minor1,
         minor2,
         dump
-    } = generationProfile.abilityScoreProfile;
+    } = asScoreProfile;
 
     returnStats[major] = abilityArray.pop()!;
     returnStats[minor1] = abilityArray.pop()!;

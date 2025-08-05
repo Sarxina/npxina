@@ -3,14 +3,20 @@ import Image from "next/image";
 import { useMemo, useState } from "react"
 import StatBlock from "../components/StatBlock";
 import { produceNPC } from "@/lib/produceNPC";
-
+import { NPCGenerationSelections } from "@/types/generationTypes";
+import { warrior } from "@/data/classData";
 
 export default function Home() {
   const [selectedCR, setSelectedCR] = useState(0)
-  const [selectedClass, setSelectedClass] = useState("warrior")
+  const [selectedClass, setSelectedClass] = useState(warrior)
 
   const generatedNPC = useMemo(() => {
-    return produceNPC({selectedCR, selectedClass});
+
+    var selections: NPCGenerationSelections = {
+      cr: selectedCR,
+      class: selectedClass
+    };
+    return produceNPC(selections);
   }, [selectedCR, selectedClass]);
 
   return (
@@ -32,15 +38,15 @@ export default function Home() {
         </select>
       </div>
       <div>
-        <select>
-          <option>And they fight like a...</option>
-          <option>Armored warrior</option>
-          <option>Hawkeyed archer</option>
-          <option>Dasterdly rogue</option>
-          <option>Duplicitous trickster</option>
-          <option>Pious priest</option>
-          <option>Dark conjurer</option>
-          <option>Skilled spellcaster</option>
+        <select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
+          <option value={warrior}>And they fight like a...</option>
+          <option value={warrior}>Armored warrior</option>
+          <option value={"archer"}>Hawkeyed archer</option>
+          <option value={"rogue"}>Dasterdly rogue</option>
+          <option value={"trickster"}>Duplicitous trickster</option>
+          <option value={"priest"}>Pious priest</option>
+          <option value={"cultist"}>Dark conjurer</option>
+          <option value={"mage"}>Skilled spellcaster</option>
         </select>
       </div>
         {/* Resultant Statblock */}
