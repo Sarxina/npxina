@@ -85,7 +85,7 @@ export const calcAtkRoll = (
     atk: number,
     numMultiAttacks: number,
     dice: number,
-    maxDice
+    maxDice: number
 ): AtkRoll => {
 
     var numDice = calcNumAtkDice(dpr, numMultiAttacks, dice);
