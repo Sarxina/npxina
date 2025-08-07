@@ -17,11 +17,11 @@ const StatBlockBasicEntry = ({keyword, keywordText}: {keyword: string, keywordTe
 }
 
 export const MultiAttackEntry = ({cr}: {cr: number}) => {
-    let numMultiAttacks = CR_TO_MULTIATTACK[cr];
+    const numMultiAttacks = CR_TO_MULTIATTACK[cr];
     const toWords = new ToWords()
-    let numMultiAttackStr = toWords.convert(numMultiAttacks).toLowerCase()
+    const numMultiAttackStr = toWords.convert(numMultiAttacks).toLowerCase()
 
-    let keywordText = `The creature makes ${numMultiAttackStr} attacks, using Melee or Ranged in any combination.`;
+    const keywordText = `The creature makes ${numMultiAttackStr} attacks, using Melee or Ranged in any combination.`;
     return (
         <div>
             {numMultiAttacks > 1 ? <StatBlockBasicEntry keyword="Multiattack." keywordText={keywordText}/> : null}
@@ -30,13 +30,13 @@ export const MultiAttackEntry = ({cr}: {cr: number}) => {
 };
 
 export const BasicAttackEntry = ({dpr, atk, cr, atkType} : {dpr: number, atk: number, cr: number, atkType: string}) => {
-    var numMultiAttacks: number = CR_TO_MULTIATTACK[cr];
+    const numMultiAttacks: number = CR_TO_MULTIATTACK[cr];
     /** For simplicity, we'll just always have them roll a d6 */
-    var attackRoll: AtkRoll = calcAtkRoll(dpr, atk, numMultiAttacks, 6, 8);
+    const attackRoll: AtkRoll = calcAtkRoll(dpr, atk, numMultiAttacks, 6, 8);
 
-    var subtitle = `${atkType} Attack Roll: +${atk}, `;
-    var range = `${atkType === 'Melee' ? 'reach 5ft. ' : 'range 30/120 ft '}`;
-    var damage = `Hit: ${attackRoll.averageDamage} (${attackRoll.numDice}d${attackRoll.diceType})+${attackRoll.damageBonus} damage`;
+    const subtitle = `${atkType} Attack Roll: +${atk}, `;
+    const range = `${atkType === 'Melee' ? 'reach 5ft. ' : 'range 30/120 ft '}`;
+    const damage = `Hit: ${attackRoll.averageDamage} (${attackRoll.numDice}d${attackRoll.diceType})+${attackRoll.damageBonus} damage`;
 
     const subTitleNode = <em>{subtitle}</em>
     const fullTextNode = (<>{subTitleNode}{range}{damage}</>)

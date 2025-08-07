@@ -1,4 +1,3 @@
-import { NPCStats } from "../types/npcTypes"
 
 export const CR_TO_XP: Record<number, number> = {
     0: 10,

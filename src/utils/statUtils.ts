@@ -1,4 +1,4 @@
-import { NPCAbilityScores, NPCStatBlockStats, Ability, Skill, AtkRoll} from "../types/npcTypes"
+import { NPCAbilityScores, Ability, Skill, AtkRoll} from "../types/npcTypes"
 
 const skillToAbilityMap: Record<Skill, Ability> = {
     Athletics: 'STR',
@@ -26,7 +26,7 @@ export const calcSingleDiceAvg = (dice: number): number => {
 }
 /**Calculates the expected value of dice roll with bonuses */
 export const calcDiceAvg = (dice: number, nDice: number, bonus: number, raw: boolean = false): number => {
-    var rawValue: number = (calcSingleDiceAvg(dice) * nDice) + bonus;
+    const rawValue: number = (calcSingleDiceAvg(dice) * nDice) + bonus;
     return raw ? rawValue : Math.round(rawValue);
 }
 /** Calculates the modifier of an ability score */
@@ -42,8 +42,8 @@ export const calcSkillMod = (
     proficient: boolean,
     expertise: boolean
 ) : number => {
-    var ability : Ability = skillToAbilityMap[skill];
-    var baseScore: number = calcAbilityMod(abilityScores[ability]);
+    const ability : Ability = skillToAbilityMap[skill];
+    const baseScore: number = calcAbilityMod(abilityScores[ability]);
 
     return baseScore + (proficient ? profBonus : 0) + (expertise ? profBonus: 0);
 };
@@ -71,13 +71,13 @@ export const calcNumDice = (total: number, dice: number): number => {
     return Math.floor(total / calcSingleDiceAvg(dice));
 }
 
-export const calcNumAtkDice = (dpr: number, nAtks: number, dice: number): number => {
-    return calcNumDice(dpr / nAtks, dice);
+export const calcNumAtkDice = (dpr: number, nAtks: number, dice: number, maxDice: number = 999): number => {
+    return Math.min(maxDice, calcNumDice(dpr / nAtks, dice));
 }
-export const calcAtkBonus = (dpr: number, nAtks: number, dice: number): number => {
-    var nDice = calcNumAtkDice(dpr, nAtks, dice)
-    var avgDiceDmg = calcDiceAvg(dice, nDice, 0, true);
-    var targetDPR = dpr / nAtks;
+export const calcAtkBonus = (dpr: number, nAtks: number, dice: number, maxDice: number = 999): number => {
+    const nDice = calcNumAtkDice(dpr, nAtks, dice, maxDice)
+    const avgDiceDmg = calcDiceAvg(dice, nDice, 0, true);
+    const targetDPR = dpr / nAtks;
     return Math.round(targetDPR - avgDiceDmg);
 }
 export const calcAtkRoll = (
@@ -88,9 +88,9 @@ export const calcAtkRoll = (
     maxDice: number
 ): AtkRoll => {
 
-    var numDice = calcNumAtkDice(dpr, numMultiAttacks, dice);
-    var damageBonus = calcAtkBonus(dpr, numMultiAttacks, dice)
-    var averageDamage = calcDiceAvg(dice, numDice, damageBonus);
+    const numDice = calcNumAtkDice(dpr, numMultiAttacks, dice, maxDice);
+    const damageBonus = calcAtkBonus(dpr, numMultiAttacks, dice, maxDice)
+    const averageDamage = calcDiceAvg(dice, numDice, damageBonus);
     return {
         attackBonus: atk,
         diceType: dice,

@@ -1,9 +1,7 @@
-import { NPCStats, CoreStats, NPCStatBlockStats, NPCAbilityScores, Ability } from "@/types/npcTypes";
+import { NPCStats, CoreStats, NPCStatBlockStats, NPCAbilityScores } from "@/types/npcTypes";
 import { calculateStats } from "./generateBaseStats";
 import { generateAbilityScores } from "./generateAbilityScores";
-import { AbilityScoreProfile, ClassProfile, CoreBuffNerf, NPCGenerationProfile, NPCGenerationSelections } from "@/types/generationTypes";
-import { profile } from "console";
-import { stat } from "fs";
+import { CoreBuffNerf, NPCGenerationSelections } from "@/types/generationTypes";
 
 export const defaultNPCAbilityScores: NPCAbilityScores = {
   STR: 10,
@@ -65,7 +63,7 @@ const calcNewStats = (npcStats: CoreStats, buffNerfProfile: CoreBuffNerf) => {
 
 const getUnmoddedStats = (currentProfile: CoreBuffNerf): string[] => {
   const stats = Object.keys(currentProfile) as (keyof CoreBuffNerf)[];
-  var ret: string[] = [];
+  const ret: string[] = [];
   stats.forEach(stat => {
     if (currentProfile[stat] === 0) {
       ret.push(stat);
@@ -76,8 +74,8 @@ const getUnmoddedStats = (currentProfile: CoreBuffNerf): string[] => {
 
 const balanceBuffNerfs = (currentProfile: CoreBuffNerf) : CoreBuffNerf => {
   const stats = Object.keys(currentProfile) as (keyof CoreBuffNerf)[];
-  var numBuffs = 0;
-  var numNerfs = 0;
+  let numBuffs = 0;
+  let numNerfs = 0;
   stats.forEach(stat => {
     if (currentProfile[stat] > 0) numBuffs++;
     else if (currentProfile[stat] < 0) numNerfs++;
@@ -86,9 +84,9 @@ const balanceBuffNerfs = (currentProfile: CoreBuffNerf) : CoreBuffNerf => {
   while (numBuffs >= 2 && numNerfs < numBuffs - 1) {
     // Add a nerf
 
-    let unmoddedStats = getUnmoddedStats(currentProfile);
-    let randIdx = Math.floor(Math.random() * unmoddedStats.length);
-    var chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
+    const unmoddedStats = getUnmoddedStats(currentProfile);
+    const randIdx = Math.floor(Math.random() * unmoddedStats.length);
+    const chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
     currentProfile[chosenStat] = -1;
     numNerfs++;
     // TODO: If there are no remaining unmodded stats, we have to
@@ -96,10 +94,10 @@ const balanceBuffNerfs = (currentProfile: CoreBuffNerf) : CoreBuffNerf => {
   }
   while (numNerfs >= 2 && numBuffs < numNerfs - 1) {
     // Add a buff
-    let unmoddedStats = getUnmoddedStats(currentProfile);
-    let randIdx = Math.floor(Math.random() * unmoddedStats.length);
-    var chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
-    currentProfile[chosenStat];
+    const unmoddedStats = getUnmoddedStats(currentProfile);
+    const randIdx = Math.floor(Math.random() * unmoddedStats.length);
+    const chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
+    currentProfile[chosenStat] = 1;
     numBuffs++;
 
     // TODO: If there are no remaining unmodded stats, we have to
@@ -114,7 +112,7 @@ const applyNerfBuff = (currentProfile: CoreBuffNerf, profileToApply: CoreBuffNer
   stats.forEach(stat => {
 
     /**Core mods should not vary stats by one basis point, so we clamp */
-    let newVal = currentProfile[stat] + profileToApply[stat];
+    const newVal = currentProfile[stat] + profileToApply[stat];
     currentProfile[stat] = Math.min(1, Math.max(-1, newVal))
   });
   return currentProfile
@@ -129,7 +127,7 @@ const applyNerfBuff = (currentProfile: CoreBuffNerf, profileToApply: CoreBuffNer
 // For this reason class/trait buffs/nerfs do not stack */
 const applyMods = (npc: NPCStats, selections: NPCGenerationSelections): NPCStats => {
 
-  var modProfile = npc.coreModProfle;
+  let modProfile = npc.coreModProfle;
 
   // Apply class mods
   modProfile = applyNerfBuff(modProfile, selections.class.classMod.coreStatMods);
@@ -160,7 +158,7 @@ const applySaveProf = (npc: NPCStats, selections: NPCGenerationSelections): NPCS
 };
 
 export const produceNPC = (generationSelections: NPCGenerationSelections): NPCStats => {
-  var retNPC: NPCStats = structuredClone(defaultNPC);
+  let retNPC: NPCStats = structuredClone(defaultNPC);
   retNPC.coreStats = calculateStats(generationSelections.cr);
   retNPC = applyMods(retNPC, generationSelections)
 

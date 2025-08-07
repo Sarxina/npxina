@@ -4,7 +4,6 @@ import StatBlock from "../components/StatBlock";
 import { classProfiles, warrior } from "@/data/classData";
 import { useGeneratedNPC } from "@/hooks/useGeneratedNPC";
 import { useGenerateASArray } from "@/hooks/useGenerateASArray";
-import { genRandomSkills } from "@/utils/genUtils";
 import { useGenerateSkills } from "@/hooks/useGenerateSkills";
 
 export default function Home() {
@@ -49,8 +48,8 @@ export default function Home() {
                 <option value={3}>A veteran, someone whose seen a real battle or two</option>
                 <option value={4}>The captain of the guard, or boss of a gang</option>
                 <option value={6}>A mage, or feared pirate captain</option>
-                <option value={8}>An infamous assassin or a faction's most skilled</option>
-                <option value={10}>An army's commander or a cult's leader</option>
+                <option value={8}>An infamous assassin or a faction&#39;s most skilled</option>
+                <option value={10}>An army&#39;s commander or a cult&#39;s leader</option>
                 <option value={12}>An archmage, or hero of the realm</option>
               </select>
             </div>

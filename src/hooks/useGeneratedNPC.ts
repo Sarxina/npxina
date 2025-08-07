@@ -1,4 +1,3 @@
-import { classProfiles } from "@/data/classData";
 import { produceNPC } from "@/lib/produceNPC";
 import { ClassProfile, NPCGenerationSelections } from "@/types/generationTypes";
 import { NPCStats, Skill } from "@/types/npcTypes";
@@ -18,5 +17,5 @@ export const useGeneratedNPC = (
             skills: skills
         };
         return produceNPC(selections)
-    }, [cr, npcClass, asArray])
+    }, [cr, npcClass, asArray, skills])
 }

@@ -64,7 +64,7 @@ function calculateRegular(cr: number): CoreStats {
 };
 export const calculateStats = (cr: number): CoreStats => {
     if (cr < 2) return low_crs[cr];
-    var stats = calculateRegular(cr);
+    const stats = calculateRegular(cr);
     if (cr > 20) stats.hp += (35 * stats.cr) - 700;
     return stats
 };

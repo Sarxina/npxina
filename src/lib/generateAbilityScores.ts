@@ -1,4 +1,4 @@
-import { AbilityScoreProfile, NPCGenerationProfile } from "@/types/generationTypes";
+import { AbilityScoreProfile } from "@/types/generationTypes";
 import { Ability, NPCAbilityScores } from "@/types/npcTypes";
 import { defaultNPCAbilityScores } from "./produceNPC";
 
@@ -7,7 +7,7 @@ const calcSortedASArray = (cr: number, baseArray: number[]): number[] => {
 
     //**Simple formula for generating NPC stats:
     // Roll a simple array, then add half the CR to everything */
-    var mod = 0;
+    let mod = 0;
     if (cr === 0) mod = -2;
     else if (cr === 0.125) mod = -1;
     else mod = Math.floor(cr / 2);
@@ -37,7 +37,7 @@ export const generateAbilityScores = (asScoreProfile: AbilityScoreProfile, baseA
     returnStats[minor2] = abilityArray.pop()!;
     returnStats[dump] = abilityArray.shift()!;
 
-    let randomInt = Math.floor(Math.random() * 2);
+    const randomInt = Math.floor(Math.random() * 2);
     returnStats[randomInt === 1 ? remainingAbilities.pop()! : remainingAbilities.shift()!] = abilityArray.pop()!;
     returnStats[remainingAbilities.pop()!] = abilityArray.pop()!;
     return returnStats;

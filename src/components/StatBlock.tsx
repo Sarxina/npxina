@@ -1,6 +1,4 @@
-import { calculateStats } from "@/lib/generateBaseStats";
-import { ReactElement } from "react";
-import { NPCStats, NPCStatBlockStats, NPCAbilityScores, Ability, Skill } from "../types/npcTypes"
+import { NPCStats, NPCStatBlockStats, NPCAbilityScores, Skill } from "../types/npcTypes"
 import { calcAbilityMod, calcSkillMod, getCRString} from "../utils/statUtils";
 import { CR_TO_XP } from "../data/crData";
 import { BasicAttackEntry, MultiAttackEntry } from "./Entries";
@@ -32,8 +30,8 @@ const StatBlockAttribute = ({attrLabel, attrValue}:{attrLabel: string, attrValue
 
 const StatBlockAttributeACInit = ({ac, init}: {ac: string, init: number}) => {
 
-    var initSign: string = modSign(init);
-    var initString: string = `${initSign}${init} (${10 + init})`;
+    const initSign: string = modSign(init);
+    const initString: string = `${initSign}${init} (${10 + init})`;
 
     return (
         <div className="flex ">
@@ -64,10 +62,10 @@ type StatTableRowProps = {
 }
 const StatTableRow = ({type, statName, statValue, statProf, profBonus}: StatTableRowProps) => {
 
-    var statMod = calcAbilityMod(statValue)
-    var statModSign = modSign(statMod);
-    var saveMod = statMod + (statProf ? profBonus : 0);
-    var saveModSign = modSign(saveMod);
+    const statMod = calcAbilityMod(statValue)
+    const statModSign = modSign(statMod);
+    const saveMod = statMod + (statProf ? profBonus : 0);
+    const saveModSign = modSign(saveMod);
     return (
         <tr>
             <th className={`statblock-stat-table-${type}-val p-0 border-0`}>{statName}</th>
@@ -169,8 +167,8 @@ const StatBlockTidbit = ({label, tidbitText}: {label: string, tidbitText: string
 
 const StatBlockTiditContainer = ({cr, profBonus}: {cr: number, profBonus: number}) => {
 
-    var crString: string = getCRString(cr);
-    var xp: number = CR_TO_XP[cr];
+    const crString: string = getCRString(cr);
+    const xp: number = CR_TO_XP[cr];
     return (
         <div className="flex">
             <StatBlockTidbit label="CR" tidbitText={`${crString} (XP ${xp}; PB +${profBonus})`}/>
@@ -189,21 +187,21 @@ type StatBlockTidbitsType = {
 // ie: Skills, senses, languages, and CR information */
 function StatBlockTidbits({abilityScores, skills, cr, profBonus}: StatBlockTidbitsType) {
 
-    var passivePerception = 10 +
+    const passivePerception = 10 +
     calcAbilityMod(abilityScores.WIS) +
     (skills.includes("Perception") ? profBonus : 0);
 
-    var skillsToDisplay: string[] = [];
+    const skillsToDisplay: string[] = [];
     skills.forEach((skill) => {
-        var skillMod: number = calcSkillMod(abilityScores, skill, profBonus, true, false)
+        const skillMod: number = calcSkillMod(abilityScores, skill, profBonus, true, false)
 
         // There should basically never be a reason for this to be negative,
         // but its technically possible
-        var sign: string = modSign(skillMod)
+        const sign: string = modSign(skillMod)
         skillsToDisplay.push(`${skill.replaceAll('_', ' ')} ${sign}${skillMod}`)
     });
 
-    var skillString: string = skillsToDisplay.join(", ");
+    const skillString: string = skillsToDisplay.join(", ");
     return (
         <div>
             <StatBlockTidbit label="Skills" tidbitText={skillString}/>
@@ -228,11 +226,15 @@ const StatBlockDescriptionBlock = ({blockTitle, entries}: {blockTitle: string, e
 }
 
 const ActionBlock = ({actions, dpr, atk, cr}: {actions: string[], dpr: number, atk: number, cr: number}) => {
-    var entries: React.ReactNode[] = [];
+    const entries: React.ReactNode[] = [];
     entries.push(<MultiAttackEntry key="Multiattack" cr={cr} />)
     entries.push(<BasicAttackEntry key="Melee" dpr={dpr} atk={atk} cr={cr} atkType="Melee" />)
     entries.push(<BasicAttackEntry key="Ranged" dpr={dpr} atk={atk} cr={cr} atkType="Ranged" />)
 
+    /**Placeholder while we work to implement actions */
+    actions.forEach((action) => {
+        entries.push(<BasicAttackEntry key={action} dpr={dpr} atk={atk} cr={cr} atkType="Melee" />)
+    })
     /**TODO: Parse actions */
     return (
         <StatBlockDescriptionBlock blockTitle="Actions" entries={entries}/>
@@ -263,10 +265,8 @@ const StatBlockDescriptionBlocks = ({traits, actions, bonusActions, reactions, d
 export default function StatBlock({npcStats}: {npcStats: NPCStats}) {
     const {
         name,
-        allignment,
         coreStats,
         statBlock,
-        coreModProfle,
         skills,
         traits,
         actions,
@@ -282,12 +282,11 @@ export default function StatBlock({npcStats}: {npcStats: NPCStats}) {
         hp,
         atk,
         dpr,
-        dc,
         prof
     } = coreStats;
 
     // Need for initiative
-    var dexMod = calcAbilityMod(statBlock.abilityScores.DEX);
+    const dexMod = calcAbilityMod(statBlock.abilityScores.DEX);
     return (
         <div className="statblock md:columns-2 bg-[url('/paper-texture.png')] bg-cover">
             <StatBlockHeader name={name} size="Medium" creatType="Humanoid" allignment="Neutral"/>
