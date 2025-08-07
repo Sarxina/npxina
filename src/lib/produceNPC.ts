@@ -1,4 +1,4 @@
-import { NPCStats, CoreStats, NPCStatBlockStats, NPCAbilityScores } from "@/types/npcTypes";
+import { NPCStats, CoreStats, NPCStatBlockStats, NPCAbilityScores, Ability } from "@/types/npcTypes";
 import { calculateStats } from "./generateBaseStats";
 import { generateAbilityScores } from "./generateAbilityScores";
 import { AbilityScoreProfile, ClassProfile, CoreBuffNerf, NPCGenerationProfile, NPCGenerationSelections } from "@/types/generationTypes";
@@ -88,7 +88,8 @@ const balanceBuffNerfs = (currentProfile: CoreBuffNerf) : CoreBuffNerf => {
 
     let unmoddedStats = getUnmoddedStats(currentProfile);
     let randIdx = Math.floor(Math.random() * unmoddedStats.length);
-    currentProfile[unmoddedStats[randIdx]] = -1;
+    var chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
+    currentProfile[chosenStat] = -1;
     numNerfs++;
     // TODO: If there are no remaining unmodded stats, we have to
     // just choose a buff to remove
@@ -97,7 +98,8 @@ const balanceBuffNerfs = (currentProfile: CoreBuffNerf) : CoreBuffNerf => {
     // Add a buff
     let unmoddedStats = getUnmoddedStats(currentProfile);
     let randIdx = Math.floor(Math.random() * unmoddedStats.length);
-    currentProfile[unmoddedStats[randIdx]] = 1;
+    var chosenStat = unmoddedStats[randIdx] as keyof CoreBuffNerf;
+    currentProfile[chosenStat];
     numBuffs++;
 
     // TODO: If there are no remaining unmodded stats, we have to
