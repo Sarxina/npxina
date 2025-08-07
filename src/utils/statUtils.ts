@@ -20,7 +20,15 @@ const skillToAbilityMap: Record<Skill, Ability> = {
     Performance: 'CHA',
     Persuasion: 'CHA'
 };
-
+/** Returns the statistical average of a dice roll */
+export const calcSingleDiceAvg = (dice: number): number => {
+    return (1 + dice) / 2
+}
+/**Calculates the expected value of dice roll with bonuses */
+export const calcDiceAvg = (dice: number, nDice: number, bonus: number, raw: boolean = false): number => {
+    var rawValue: number = (calcSingleDiceAvg(dice) * nDice) + bonus;
+    return raw ? rawValue : Math.round(rawValue);
+}
 /** Calculates the modifier of an ability score */
 export const calcAbilityMod = (score: number): number => {
     return Math.floor((score - 10) / 2);
@@ -59,13 +67,30 @@ export const getCRString = (cr: number): string => {
     }
 }
 
-export const calcAtkRoll = (dpr: number, atk: number, numMultiAttacks: number, dice: number): AtkRoll => {
+export const calcNumDice = (total: number, dice: number): number => {
+    return Math.floor(total / calcSingleDiceAvg(dice));
+}
 
-    var dmgPerAttack = Math.ceil(dpr / numMultiAttacks);
-    var numDice = Math.floor(dmgPerAttack / dice);
-    var damageBonus = dmgPerAttack - (numDice * dice);
-    var averageDamage = Math.ceil((dice / 2) * numDice) + damageBonus;
+export const calcNumAtkDice = (dpr: number, nAtks: number, dice: number): number => {
+    return calcNumDice(dpr / nAtks, dice);
+}
+export const calcAtkBonus = (dpr: number, nAtks: number, dice: number): number => {
+    var nDice = calcNumAtkDice(dpr, nAtks, dice)
+    var avgDiceDmg = calcDiceAvg(dice, nDice, 0, true);
+    var targetDPR = dpr / nAtks;
+    return Math.round(targetDPR - avgDiceDmg);
+}
+export const calcAtkRoll = (
+    dpr: number,
+    atk: number,
+    numMultiAttacks: number,
+    dice: number,
+    maxDice
+): AtkRoll => {
 
+    var numDice = calcNumAtkDice(dpr, numMultiAttacks, dice);
+    var damageBonus = calcAtkBonus(dpr, numMultiAttacks, dice)
+    var averageDamage = calcDiceAvg(dice, numDice, damageBonus);
     return {
         attackBonus: atk,
         diceType: dice,

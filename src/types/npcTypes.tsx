@@ -1,8 +1,8 @@
 import { CoreBuffNerf } from "./generationTypes";
 
-type BuffNerfNeutral = "buff" | "nerf" | "nuetral"
 
 export type Ability = 'STR' | 'DEX' | 'CON' | 'INT' | 'WIS' | 'CHA';
+
 export type Skill =
     | 'Athletics'
     | 'Acrobatics'

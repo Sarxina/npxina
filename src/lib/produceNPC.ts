@@ -141,33 +141,33 @@ const applyMods = (npc: NPCStats, selections: NPCGenerationSelections): NPCStats
   npc.coreModProfle = modProfile;
   // Calculate new stats
   npc.coreStats = calcNewStats(npc.coreStats, modProfile);
-
   return npc
-
-
 
 }
 
+/**Sets the saving throw proficiencies
+ * See https://www.blogofholding.com/?p=8548 for rationale
+ * tl;dr: CR 0-4: 0, CR5-8: 1, CR9-11 2, CR 12+ 3
+ * For now, we just use the best class ability scores
+ */
+const applySaveProf = (npc: NPCStats, selections: NPCGenerationSelections): NPCStats => {
+  if (selections.cr >= 5) npc.statBlock.saveProf.push(selections.class.abilityProfile.major);
+  if (selections.cr >= 9) npc.statBlock.saveProf.push(selections.class.abilityProfile.minor1);
+  if (selections.cr >= 12) npc.statBlock.saveProf.push(selections.class.abilityProfile.minor2);
+  return npc;
+};
+
 export const produceNPC = (generationSelections: NPCGenerationSelections): NPCStats => {
-  var retNPC = defaultNPC;
+  var retNPC: NPCStats = structuredClone(defaultNPC);
   retNPC.coreStats = calculateStats(generationSelections.cr);
   retNPC = applyMods(retNPC, generationSelections)
 
-  /** TODO: Map class selection to ability score profiles
-   * for now, we have a generic warrior example
-  */
-
-  var tempASProfile: AbilityScoreProfile = {
-    major: 'STR',
-    minor1: 'CON',
-    minor2: 'WIS',
-    dump: 'INT'
-  };
-
-  var tempGenProfile: NPCGenerationProfile = {
-    cr: generationSelections.cr,
-    abilityScoreProfile: tempASProfile
-  }
-  retNPC.statBlock.abilityScores = generateAbilityScores(tempGenProfile)
-  return defaultNPC;
+  retNPC.statBlock.abilityScores = generateAbilityScores(
+    generationSelections.class.abilityProfile,
+    generationSelections.asArray,
+    generationSelections.cr
+  )
+  retNPC = applySaveProf(retNPC, generationSelections);
+  retNPC.skills = generationSelections.skills;
+  return retNPC;
 };

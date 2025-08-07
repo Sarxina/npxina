@@ -3,13 +3,17 @@ import { ToWords } from 'to-words';
 import { AtkRoll } from "../types/npcTypes"
 import { calcAtkRoll } from "../utils/statUtils";
 
-const StatBlockBasicEntry = ({keyword, keywordText}: {keyword: string, keywordText: string}) => {
+
+const StatBlockEntry = ({keyword, textDOM}: {keyword: string, textDOM: React.ReactNode}) => {
     return (
         <p className="mb-2.5 ">
             <em><strong>{keyword}. </strong></em>
-            {keywordText}
+            {textDOM}
         </p>
     )
+}
+const StatBlockBasicEntry = ({keyword, keywordText}: {keyword: string, keywordText: string}) => {
+    return (<StatBlockEntry keyword={keyword} textDOM={keywordText}/>)
 }
 
 export const MultiAttackEntry = ({cr}: {cr: number}) => {
@@ -28,14 +32,15 @@ export const MultiAttackEntry = ({cr}: {cr: number}) => {
 export const BasicAttackEntry = ({dpr, atk, cr, atkType} : {dpr: number, atk: number, cr: number, atkType: string}) => {
     var numMultiAttacks: number = CR_TO_MULTIATTACK[cr];
     /** For simplicity, we'll just always have them roll a d6 */
-    var attackRoll: AtkRoll = calcAtkRoll(dpr, atk, numMultiAttacks, 6);
+    var attackRoll: AtkRoll = calcAtkRoll(dpr, atk, numMultiAttacks, 6, 8);
 
-    var subtitle = `${atkType} Attack Roll: `;
+    var subtitle = `${atkType} Attack Roll: +${atk}, `;
     var range = `${atkType === 'Melee' ? 'reach 5ft. ' : 'range 30/120 ft '}`;
     var damage = `Hit: ${attackRoll.averageDamage} (${attackRoll.numDice}d${attackRoll.diceType})+${attackRoll.damageBonus} damage`;
 
-    var fullText = `${subtitle}${range}${damage}`
+    const subTitleNode = <em>{subtitle}</em>
+    const fullTextNode = (<>{subTitleNode}{range}{damage}</>)
     return (
-        <StatBlockBasicEntry keyword={atkType} keywordText={fullText}/>
+        <StatBlockEntry keyword={atkType} textDOM={fullTextNode}/>
     )
 };

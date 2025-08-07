@@ -2,18 +2,8 @@ import { AbilityScoreProfile, NPCGenerationProfile } from "@/types/generationTyp
 import { Ability, NPCAbilityScores } from "@/types/npcTypes";
 import { defaultNPCAbilityScores } from "./produceNPC";
 
-const rollAbilityScore = (): number => {
-    const rolls = Array.from({length: 4}, () => Math.floor(Math.random() * 6) + 1);
-    rolls.sort((a, b) => b - a);
-    return rolls.slice(0, 3).reduce((sum, roll) => sum + roll, 0);
-};
 
-const generateASArray = (): number[] => {
-    return Array.from({length: 6}, () => rollAbilityScore());
-}
-
-const getASArray = (cr: number): number[] => {
-    var baseArray: number[] = generateASArray();
+const calcSortedASArray = (cr: number, baseArray: number[]): number[] => {
 
     //**Simple formula for generating NPC stats:
     // Roll a simple array, then add half the CR to everything */
@@ -25,9 +15,9 @@ const getASArray = (cr: number): number[] => {
     return baseArray.map(x => x + mod).sort((a, b) => a - b);
 }
 
-export const generateAbilityScores = (asScoreProfile: AbilityScoreProfile, cr: number): NPCAbilityScores => {
+export const generateAbilityScores = (asScoreProfile: AbilityScoreProfile, baseArray: number[], cr: number): NPCAbilityScores => {
 
-    const abilityArray: number[] = getASArray(cr);
+    const abilityArray: number[] = calcSortedASArray(cr, baseArray);
     const returnStats: NPCAbilityScores = {...defaultNPCAbilityScores}
 
     /** Randomy choose which order to assign the remaining ability scores for variety */

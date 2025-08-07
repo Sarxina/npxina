@@ -2,6 +2,15 @@
 
 @theme {
     --color-statblock-brown: #5b160c;
+    --color-pal-federal-blue: #03045e;
+    --color-pal-marian-blue: #023e8a;
+    --color-pal-honolulu-blue: #0077b6;
+    --color-pal-blue-green: #0096c7;
+    --color-pal-pacific-cyan: #00b4d8;
+    --color-pal-vivid-sky-blue: #48cae4;
+    --color-pal-non-photo-blue: #90e0ef;
+    --color-pal-non-photo-blue-2: #ade8f4;
+    --color-pal-light-cyan: #caf0f8;
 };
 
 @font-face {

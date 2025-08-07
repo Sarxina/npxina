@@ -160,7 +160,7 @@ const StatBlockStats = ({statBlock, prof}: {statBlock: NPCStatBlockStats, prof: 
 
 const StatBlockTidbit = ({label, tidbitText}: {label: string, tidbitText: string}) => {
     return (
-        <div className="text-statblock-brown ml-3">
+        <div className="text-statblock-brown">
             <span className="font-bold">{label} </span>
             <span>{tidbitText}</span>
         </div>
@@ -199,8 +199,8 @@ function StatBlockTidbits({abilityScores, skills, cr, profBonus}: StatBlockTidbi
 
         // There should basically never be a reason for this to be negative,
         // but its technically possible
-        var sign: string = skillMod >= 0 ? '+' : '-';
-        skillsToDisplay.push(`${skill} ${sign}${skillMod}`)
+        var sign: string = modSign(skillMod)
+        skillsToDisplay.push(`${skill.replaceAll('_', ' ')} ${sign}${skillMod}`)
     });
 
     var skillString: string = skillsToDisplay.join(", ");

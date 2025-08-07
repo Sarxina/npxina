@@ -54,11 +54,11 @@ const low_crs: Record<number, CoreStats> = {
 function calculateRegular(cr: number): CoreStats {
     return {
         cr: cr,
-        ac: 14 + (0.3 * cr),
+        ac: 14 + Math.floor(cr / 3),
         hp: 15 + (15 * cr),
-        atk: 4 + (0.5 * cr),
+        atk: 4 + Math.floor(cr / 2),
         dpr: 6 + (6 * cr),
-        dc: 11 + (9.5 * cr),
+        dc: 11 + Math.floor(cr / 2),
         prof: cr <=4 ? 2 : 3 + Math.ceil((cr - 5) / 4)
     }
 };
