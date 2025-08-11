@@ -1,4 +1,6 @@
 import { Ability, DescBlockType, NPCStats, Skill } from "./npcTypes"
+import { ClassProfile } from "./selectionTypes";
+
 
 /**Represents the top-3, and lowest ability score of a class */
 export type AbilityScoreProfile = {
@@ -38,14 +40,6 @@ export type ActionMod = {
 export type ClassMod = {
     coreStatMods: CoreBuffNerf;
     actionMods: ActionMod[];
-}
-
-/** Defines all information needed to a apply a class to a generation */
-export type ClassProfile = {
-    key: string;
-    selectionText: string,
-    abilityProfile: AbilityScoreProfile;
-    classMod: ClassMod
 }
 
 export type NPCGenerationSelections = {

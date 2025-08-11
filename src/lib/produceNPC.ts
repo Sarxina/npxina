@@ -36,7 +36,7 @@ const defaultBuffNerf: CoreBuffNerf = {
 };
 
 const defaultNPC: NPCStats = {
-  name: "Commoner",
+  name: "Generated NPC",
   allignment: "Neutral",
   coreStats: defaultNPCCoreStats,
   statBlock: defaultNPCStats,

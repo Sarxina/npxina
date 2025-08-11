@@ -1,16 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-    --color-statblock-brown: #5b160c;
-    --color-pal-federal-blue: #03045e;
-    --color-pal-marian-blue: #023e8a;
-    --color-pal-honolulu-blue: #0077b6;
-    --color-pal-blue-green: #0096c7;
-    --color-pal-pacific-cyan: #00b4d8;
-    --color-pal-vivid-sky-blue: #48cae4;
-    --color-pal-non-photo-blue: #90e0ef;
-    --color-pal-non-photo-blue-2: #ade8f4;
-    --color-pal-light-cyan: #caf0f8;
+    --color-backgrounds1: #FDFDFF;
+    --color-backgrounds2: #F8F8FF;
+    --color-interactives1: #F8F8FF;
+    --color-interactives2: #E6E7FF;
+    --color-interactives3: #DADCFF;
+    --color-borders1: #CBCDFF;
+    --color-borders2: #B8BAF8;
+    --color-borders3: #9B9EF0;
+    --color-solid1: #5B5BD6;
+    --color-solid2: #5151CD;
+    --color-accessibletext1: #5753C6;
+    --color-accessibletext2: #272962;
+    --color-gray-backgrounds1: #FAFAFA;
+    --color-gray-backgrounds2: #F6F6F6;
+    --color-gray-interactives1: #EDEDED;
+    --color-gray-interactives2: #E5E5E5;
+    --color-gray-interactives3: #DEDEDE;
+    --color-gray-borders1: #D5D5D5;
+    --color-gray-borders2: #CBCBCB;
+    --color-gray-borders3: #B7B7B7;
+    --color-gray-solid1: #8A8A8A;
+    --color-gray-solid2: #808080;
+    --color-gray-accessibletext1: #616161;
+    --color-gray-accessibletext2: #202020;
 };
 
 @font-face {
@@ -23,7 +37,9 @@
 :root {
     --statblock_font-tiamat: "Tiamat", serif;
 }
-
+.font-roboto {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
 .statblock {
     background: #f5f3ee !important;
     position: relative;

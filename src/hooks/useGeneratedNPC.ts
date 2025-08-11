@@ -1,6 +1,7 @@
 import { produceNPC } from "@/lib/produceNPC";
-import { ClassProfile, NPCGenerationSelections } from "@/types/generationTypes";
+import { NPCGenerationSelections } from "@/types/generationTypes";
 import { NPCStats, Skill } from "@/types/npcTypes";
+import { ClassProfile } from "@/types/selectionTypes";
 import { useMemo } from "react";
 
 export const useGeneratedNPC = (

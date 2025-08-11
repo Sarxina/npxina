@@ -1,3 +1,5 @@
+import { CRProfile } from "@/types/selectionTypes";
+
 
 export const CR_TO_XP: Record<number, number> = {
     0: 10,
@@ -60,3 +62,15 @@ export const CR_TO_MULTIATTACK: Record<number, number> = {
     25: 3,
     26: 3
 }
+
+export const crProfiles: CRProfile[] = [
+    {key: "0", selectionText: 'an untrained, everyperson', cr: 0},
+    {key: "0.125", selectionText: 'someone with basic training, a grunt', cr: 0.125},
+    {key: "2", selectionText: 'someone with a few years until their belt', cr: 2},
+    {key: "3", selectionText: 'a veteran, someone whose seen a real battle or two', cr: 3},
+    {key: "4", selectionText: 'the captain of the guard, or boss of a gang', cr: 4},
+    {key: "6", selectionText: 'a court mage or leader of a branch of a large faction', cr: 6},
+    {key: "8", selectionText: 'a faction\'s strongest fighters', cr: 8},
+    {key: "10", selectionText: 'an army\'s commander or a cult\'s leader', cr: 10},
+    {key: "12", selectionText: 'an archmage, or hero of the realm', cr: 12},
+]

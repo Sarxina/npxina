@@ -288,7 +288,7 @@ export default function StatBlock({npcStats}: {npcStats: NPCStats}) {
     // Need for initiative
     const dexMod = calcAbilityMod(statBlock.abilityScores.DEX);
     return (
-        <div className="statblock md:columns-2 bg-[url('/paper-texture.png')] bg-cover">
+        <div className="statblock @md:columns-2 bg-[url('/paper-texture.png')] bg-cover">
             <StatBlockHeader name={name} size="Medium" creatType="Humanoid" allignment="Neutral"/>
             <StatBlockAttributes ac={ac} hp={hp} dexMod={dexMod}/>
             <StatBlockStats statBlock={statBlock} prof={prof}/>

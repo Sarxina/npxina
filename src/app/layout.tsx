@@ -25,7 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-br from-pal-light-cyan via-pal-non-photo-blue-2 to-pal-light-cyan`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-b from-backgrounds2 to-backgrounds1 text-slate-800 antialiased min-h-screen flex flex-col`}
+        style={{
+          backgroundImage: 'url(/background_texture.png)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'repeat',
+          backgroundAttachment: 'fixed'
+        }}
       >
         {children}
       </body>

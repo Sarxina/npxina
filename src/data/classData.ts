@@ -1,4 +1,4 @@
-import { ClassProfile } from "@/types/generationTypes";
+import { ClassProfile } from "@/types/selectionTypes"
 
 
 export const warrior: ClassProfile = {
